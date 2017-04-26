@@ -1,8 +1,10 @@
 from os import system
+import sys
 
 
 def getch():
-    import sys, tty, termios
+    import tty
+    import termios
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
@@ -61,10 +63,16 @@ def proper_input_player(size, message):
 
 
 def main():
-    width = proper_input_size("Enter width of board: ")
-    height = proper_input_size("Enter height of board: ")
-    x = proper_input_player(width, "Enter player x position: ")
-    y = proper_input_player(height, "Enter player y position: ")
+    try:
+        width = int(sys.argv[1])
+        height = int(sys.argv[2])
+        x = int(sys.argv[3])
+        y = int(sys.argv[4])
+    except:
+        width = proper_input_size("Enter width of board: ")
+        height = proper_input_size("Enter height of board: ")
+        x = proper_input_player(width, "Enter player x position: ")
+        y = proper_input_player(height, "Enter player y position: ")
     while True:
         size = create_board(width, height)
         board = insert_player(size, x, y)
@@ -72,11 +80,11 @@ def main():
         movement = getch()
         if movement == "w" and y > 2:
             y -= 1
-        if movement == "s":
+        if movement == "s" and y < height-1:
             y += 1
-        if movement == "a"  and x > 2:
+        if movement == "a" and x > 2:
             x -= 1
-        if movement == "d":
+        if movement == "d" and x < width-1:
             x += 1
         if movement == "q":
             exit()
