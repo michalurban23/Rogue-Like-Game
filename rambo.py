@@ -1,4 +1,4 @@
-from os import system
+import os
 import sys
 
 
@@ -16,50 +16,23 @@ def getch():
 
 
 def create_board(width, height):
-    vertical = ["X" * width]
+    vertical = [["\bX"] * width]
     middle = []
     for i in range(height-2):
-        middle.append("X" + " " * (width-2) + "X")
+        middle.append(list(["X"] + ["\b "] * (width-2) + ["\bX"]))
     playboard = vertical + middle + vertical
     return playboard
 
 
 def print_board(board):
-    system("clear")
+    os.system("clear")
     for line in board:
-        print(line)
+        print(*line)
 
 
 def insert_player(board, x, y):
-    board.insert(y-1, board[y-1][:x-1] + "@" + board[y-1][x:])
-    board.pop(y)
+    board[y-1][x-1] = "\b@"
     return board
-
-
-def proper_input_size(message):
-    while True:
-        number = input(message)
-        if number.isdecimal:
-            try:
-                if int(number) > 2:
-                    return int(number)
-                else:
-                    print("Must be greater than 2")
-            except ValueError:
-                print("Must be integer")
-
-
-def proper_input_player(size, message):
-    while True:
-        number = input(message)
-        if number.isdecimal:
-            try:
-                if int(number) > 1 and int(number) < size:
-                    return int(number)
-                else:
-                    print("Must be inside")
-            except ValueError:
-                print("Must be integer")
 
 
 def main():
@@ -75,7 +48,7 @@ def main():
         y = proper_input_player(height, "Enter player y position: ")
     while True:
         size = create_board(width, height)
-        board = insert_player(size, x, y)
+        board = insert_player(size[:], x, y)
         print_board(board)
         print("lives = 10")
         movement = getch()
