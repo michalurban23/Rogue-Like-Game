@@ -5,7 +5,7 @@ from colored import fg, bg, attr
 colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), 'black': bg('black') + fg('black'),
           'dark_orange': bg('dark_orange_3a') + fg('dark_orange_3a'), 'yellow4b': bg('yellow_4b') + fg('yellow_4b'),
           'reset': attr('reset')}
-FORBIDDEN_MOVES = [colors['black']+"\bX"+colors['reset'], "\bW", colors['green']+"\bT"+colors['reset']]
+OBSTACLES = [colors['black']+"\bX"+colors['reset'], "\bW", colors['green']+"\bT"+colors['reset']]
 
 
 def getch():
@@ -34,7 +34,7 @@ def create_board(file_name):
                 element = colors['black'] + "\b" + element + colors['reset']
             elif element == "R":
                 element = colors['blue'] + "\b" + element + colors['reset']
-            elif element == "B":
+            elif element == "B" or element == "W":
                 element = colors['dark_orange'] + "\b" + element + colors['reset']
             else:
                 element = colors['yellow4b'] + "\b" + element + colors['reset']
@@ -58,20 +58,19 @@ def main():
     x = 2
     y = 2
     while True:
-        size = create_board("vietnam_jungle.txt")
+        size = create_board(sys.argv[1])
+        #size = create_board("pow_camp.txt")
         board = insert_player(size[:], x, y)
         print_board(board)
-        # print("lives = 10", y, x)
-        # print("up {} down {} left {} right {}".format(board[y-2][x-1], board[y][x-1], board[y-1][x-2], board[y-1][x]))
         movement = getch()
         # When any 'WSAD' key press and coresponding position is not "\bX" player moves
-        if movement == "w" and board[y-2][x-1] not in FORBIDDEN_MOVES:
+        if movement == "w" and board[y-2][x-1] not in OBSTACLES:
             y -= 1
-        if movement == "s" and board[y][x-1] not in FORBIDDEN_MOVES:
+        if movement == "s" and board[y][x-1] not in OBSTACLES:
             y += 1
-        if movement == "a" and board[y-1][x-2] not in FORBIDDEN_MOVES:
+        if movement == "a" and board[y-1][x-2] not in OBSTACLES:
             x -= 1
-        if movement == "d" and board[y-1][x] not in FORBIDDEN_MOVES:
+        if movement == "d" and board[y-1][x] not in OBSTACLES:
             x += 1
         if movement == "q":
             exit()
