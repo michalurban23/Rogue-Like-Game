@@ -2,12 +2,11 @@ import os
 import sys
 from colored import fg, bg, attr
 
-color = bg('dark_khaki') + fg('white')
-green = bg('green') + fg('green')
-blue = bg('blue') + fg('blue')
-black = bg('black') + fg('black')
-reset = attr('reset')
-FORBIDDEN_MOVES = ["\bX", "\bW", green+"\bT"+reset]
+colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), 'black': bg('black') + fg('black'),
+          'dark_orange': bg('dark_orange_3a') + fg('dark_orange_3a'), 'yellow4b': bg('yellow_4b') + fg('yellow_4b'),
+          'reset': attr('reset')}
+FORBIDDEN_MOVES = [colors['black']+"\bX"+colors['reset'], "\bW", colors['green']+"\bT"+colors['reset']]
+
 
 def getch():
     import tty
@@ -30,13 +29,15 @@ def create_board(file_name):
         playboard_line = []
         for element in line[:-1]:
             if element == "T":
-                element = green + "\b" + element + reset
+                element = colors['green'] + "\b" + element + colors['reset']
             elif element == "X":
-                element = black + "\b" + element + reset
+                element = colors['black'] + "\b" + element + colors['reset']
             elif element == "R":
-                element = blue + "\b" + element + reset
+                element = colors['blue'] + "\b" + element + colors['reset']
+            elif element == "B":
+                element = colors['dark_orange'] + "\b" + element + colors['reset']
             else:
-                element = color + "\b" + element + reset
+                element = colors['yellow4b'] + "\b" + element + colors['reset']
             playboard_line.append(element)
         playboard.append(playboard_line)
     return playboard
