@@ -1,6 +1,7 @@
 import os
 import sys
 from colored import fg, bg, attr
+from cc_screens import *
 
 colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), 'black': bg('black') + fg('black'),
           'dorange': bg('dark_orange_3a') + fg('dark_orange_3a'), 'yellow4b': bg('yellow_4b') + fg('yellow_4b'),
@@ -21,37 +22,6 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
-
-
-def show_ascii_intro():
-    os.system("clear")
-    with open("intro.txt", "r") as file:
-        rambo_ascii = file.readlines()
-        i = 0
-        for line in rambo_ascii:
-            i += 1
-            if i % 2 != 1:
-                print(fg('wheat_1'), line[:-1])
-
-
-def show_main_menu():
-    pass
-
-
-def start_game():
-    pass
-
-
-def show_highscores():
-    pass
-
-
-def show_credits():
-    pass
-
-
-def show_rules():
-    pass
 
 
 def create_board(file_name):
@@ -116,6 +86,7 @@ def main():
     show_ascii_intro()
     input("Press enter to continue")
     show_main_menu()
+    start_game()
     while True:
         background = create_board(sys.argv[1])
         board = insert_player(background[:], x, y)
