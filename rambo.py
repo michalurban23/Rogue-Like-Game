@@ -1,7 +1,7 @@
 import os
 import sys
 from colored import fg, bg, attr
-from cc_screens import *
+from rambo_screens import *
 
 colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), 'black': bg('black') + fg('black'),
           'dorange': bg('dark_orange_3a') + fg('dark_orange_3a'), 'yellow4b': bg('yellow_4b') + fg('yellow_4b'),
@@ -84,9 +84,8 @@ def main():
     y = 2
     status = [["Lives", 5], ["Energy", 100], ["Experience", 0], ["Inventory", ["Dict", "Key", "Fuel", "Joar"]]]
     show_ascii_intro()
-    input("Press enter to continue")
+    input()
     show_main_menu()
-    start_game()
     while True:
         background = create_board(sys.argv[1])
         board = insert_player(background[:], x, y)
