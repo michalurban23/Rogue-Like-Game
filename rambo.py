@@ -1,6 +1,9 @@
 import os
 import sys
 from colored import fg, bg, attr
+import rambo_minions
+import random
+# from rambo_minions import create_enemies
 
 colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), 'black': bg('black') + fg('black'),
           'dorange': bg('dark_orange_3a') + fg('dark_orange_3a'), 'yellow4b': bg('yellow_4b') + fg('yellow_4b'),
@@ -112,29 +115,45 @@ def print_status_bar(width_of_bar, status):
 def main():
     x = 2
     y = 2
+    amount_of_enemies = 50
     status = [["Lives", 5], ["Energy", 100], ["Experience", 0], ["Inventory", ["Dict", "Key", "Fuel", "Joar"]]]
-    show_ascii_intro()
-    input("Press enter to continue")
-    show_main_menu()
+  #  show_ascii_intro()
+   # input("Press enter to continue")
+   # show_main_menu()
+    background = create_board(sys.argv[1])
+    positions_of_enemies = rambo_minions.create_enemies(background, amount_of_enemies)
+    previous_positions = []
     while True:
         background = create_board(sys.argv[1])
+        board = rambo_minions.insert_enemies(background[:], positions_of_enemies)        
         board = insert_player(background[:], x, y)
+
         print_board(board)
-        print_status_bar(len(board[0]), status)
+      #  print_status_bar(len(board[0]), status)
+        print(x, y)
+        print(len(positions_of_enemies))
+        # minions.kill_enemies(positions_of_enemies, x, y)
         movement = getch()
         # When any 'WSAD' key press and coresponding position is not illegal player moves
         if movement == "w" and board[y-2][x-1] not in OBSTACLES:
             y -= 1
-        if movement == "s" and board[y][x-1] not in OBSTACLES:
+        elif movement == "s" and board[y][x-1] not in OBSTACLES:
             y += 1
-        if movement == "a" and board[y-1][x-2] not in OBSTACLES:
+        elif movement == "a" and board[y-1][x-2] not in OBSTACLES:
             x -= 1
-        if movement == "d" and board[y-1][x] not in OBSTACLES:
+        elif movement == "d" and board[y-1][x] not in OBSTACLES:
             x += 1
-        if movement == "q":
+        elif movement == "q":
             if input("Type 'quit' to exit ") == "quit":
                 exit()
-
+        #previous_positions = positions_of_enemies
+        if movement in ["w", "s", "a", "d"]:
+            positions_of_enemies = rambo_minions.move_enemies(background[:], positions_of_enemies)
+        #getch()
+        if movement == "f":
+            rambo_minions.kill_enemies(positions_of_enemies, x, y)
+        #getch()
+       # 
 
 if __name__ == '__main__':
     main()
