@@ -1,13 +1,12 @@
 import os
 import sys
-from colored import fg, bg, attr
+
 import rambo_minions
 import random
-# from rambo_minions import create_enemies
 
-colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), 'black': bg('black') + fg('black'),
-          'dorange': bg('dark_orange_3a') + fg('dark_orange_3a'), 'yellow4b': bg('yellow_4b') + fg('yellow_4b'),
-          'dred': bg('red_3a') + fg('red_3a'), 'reset': attr('reset')}
+from rambo_screens import *
+
+
 OBSTACLES = [colors['black']+"\bX"+colors['reset'],  # Edges
              colors['dorange']+"\bW"+colors['reset'],  # Walls
              colors['green']+"\bT"+colors['reset']]  # Trees
@@ -24,37 +23,6 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
-
-
-def show_ascii_intro():
-    os.system("clear")
-    with open("intro.txt", "r") as file:
-        rambo_ascii = file.readlines()
-        i = 0
-        for line in rambo_ascii:
-            i += 1
-            if i % 2 != 1:
-                print(fg('wheat_1'), line[:-1])
-
-
-def show_main_menu():
-    pass
-
-
-def start_game():
-    pass
-
-
-def show_highscores():
-    pass
-
-
-def show_credits():
-    pass
-
-
-def show_rules():
-    pass
 
 
 def create_board(file_name):
@@ -117,22 +85,25 @@ def main():
     y = 2
     amount_of_enemies = 50
     status = [["Lives", 5], ["Energy", 100], ["Experience", 0], ["Inventory", ["Dict", "Key", "Fuel", "Joar"]]]
-  #  show_ascii_intro()
-   # input("Press enter to continue")
-   # show_main_menu()
+
+    show_ascii_intro()
+    input()
+    show_main_menu()
+    create_character()
+    start_game()
     background = create_board(sys.argv[1])
     positions_of_enemies = rambo_minions.create_enemies(background, amount_of_enemies)
-    previous_positions = []
+
     while True:
         background = create_board(sys.argv[1])
         board = rambo_minions.insert_enemies(background[:], positions_of_enemies)        
         board = insert_player(background[:], x, y)
 
         print_board(board)
-      #  print_status_bar(len(board[0]), status)
+        # print_status_bar(len(board[0]), status)
         print(x, y)
         print(len(positions_of_enemies))
-        # minions.kill_enemies(positions_of_enemies, x, y)
+  
         movement = getch()
         # When any 'WSAD' key press and coresponding position is not illegal player moves
         if movement == "w" and board[y-2][x-1] not in OBSTACLES:
@@ -146,14 +117,13 @@ def main():
         elif movement == "q":
             if input("Type 'quit' to exit ") == "quit":
                 exit()
-        #previous_positions = positions_of_enemies
+
         if movement in ["w", "s", "a", "d"]:
             positions_of_enemies = rambo_minions.move_enemies(background[:], positions_of_enemies)
-        #getch()
+
         if movement == "f":
             rambo_minions.kill_enemies(positions_of_enemies, x, y)
-        #getch()
-       # 
+  
 
 if __name__ == '__main__':
     main()
