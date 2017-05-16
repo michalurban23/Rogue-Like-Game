@@ -79,11 +79,11 @@ def main():
     x = 2
     y = 2
     status = [["Lives", 5], ["Energy", 100], ["Experience", 0], ["Inventory", ["Dict", "Key", "Fuel", "Joar"]]]
-    '''show_ascii_intro()
+    show_ascii_intro()
     input()
     show_main_menu()
     create_character()
-    start_game()'''
+    start_game()
     while True:
         background = create_board(sys.argv[1])
         board = insert_player(background[:], x, y)
