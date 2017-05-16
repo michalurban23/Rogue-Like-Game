@@ -1,7 +1,6 @@
 from os import system
 from rambo_colors import *
 from time import sleep
-from colored import fg, bg, attr
 
 
 def show_ascii_intro():
@@ -61,21 +60,21 @@ def start_game():
     '''
     system("clear")
     print(UNDERLINE + "\nGood day soldier!\n" + RESET)
-    sleep(1)
+    sleep(2)
     print(LPURPLE + ascii_arts(5) + RESET)
     print(BLUE + "This is " + RED + "Colonel Samuel Trautman" + BLUE + " from US Marine Coorps.\n")
-    sleep(2)
+    sleep(3)
     print("As a part of our agreement for freeing you from prison, you are now due to perform a special",
           "\noperation for your country. There has been rumours about Vietnamese cooperating with Soviets",
           "\nand keeping our soldiers prisoners at their camp. You task is to travel to a jungle, perform",
           "\na reckon, confirm our suspicions with photographies and get to the extraction point to return home.\n")
-    sleep(5)
+    sleep(7)
     print("Under any circumstances," + RED + " do NOT interact with our POW's or enemies.\n")
-    sleep(3)
+    sleep(4)
     print(BLUE + "Good luck soldier, I expect everything goes swift. After all, you're our most renown veteran\n")
-    sleep(2)
+    sleep(3)
     print("Godspeed!\n\n")
-    sleep(1)
+    sleep(2)
     while True:
         start = input("Type 'start' to begin your adventure\n")
         if start == 'start':
@@ -146,7 +145,7 @@ def create_character():
             print(RED + "Rambo is now a", skill + "!" + BLUE)
             del skills[skill.title()]
         else:
-            print("\nNot a valid skill (or already taken)\n")
+            print("\nNot a valid skill (or already taken)")
         if len(skills) == 6:
             break
 
@@ -226,3 +225,30 @@ def ascii_arts(n):
         for element in ascii_arts:
             arts.append(element)
     return arts[n]
+
+
+def show_death_screen():
+    '''
+    Shows a death screen, replays main program
+    '''
+    system("clear")
+    print(RED + ascii_arts(4) + BLUE)
+    print(UNDERLINE + "\nYOU ARE DEAD\n" + RESET)
+    input()
+    show_main_menu()
+
+
+def show_victory_screen():
+    '''
+    Shows a victory screen and updates highscores
+    '''
+    system("clear")
+    print(YELLOW + ascii_arts(6) + RESET)
+    print(BLUE + "You are victorious. Rambo once again saved the world.")
+    print("There is only one more thing before you can get ready for sequel.")
+    input("\nPress enter for Hall of Fame. You certainly deserved it!")
+
+    pass  # save to highscores
+
+    show_highscores()
+    show_main_menu()

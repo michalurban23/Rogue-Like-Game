@@ -2,9 +2,6 @@ import os
 import sys
 from rambo_screens import *
 
-colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), 'black': bg('black') + fg('black'),
-          'dorange': bg('dark_orange_3a') + fg('dark_orange_3a'), 'yellow4b': bg('yellow_4b') + fg('yellow_4b'),
-          'dred': bg('red_3a') + fg('red_3a'), 'reset': attr('reset')}
 OBSTACLES = [colors['black']+"\bX"+colors['reset'],  # Edges
              colors['dorange']+"\bW"+colors['reset'],  # Walls
              colors['green']+"\bT"+colors['reset']]  # Trees
@@ -82,11 +79,11 @@ def main():
     x = 2
     y = 2
     status = [["Lives", 5], ["Energy", 100], ["Experience", 0], ["Inventory", ["Dict", "Key", "Fuel", "Joar"]]]
-    show_ascii_intro()
+    '''show_ascii_intro()
     input()
     show_main_menu()
     create_character()
-    start_game()
+    start_game()'''
     while True:
         background = create_board(sys.argv[1])
         board = insert_player(background[:], x, y)
@@ -105,6 +102,10 @@ def main():
         if movement == "q":
             if input("Type 'quit' to exit ") == "quit":
                 exit()
+        if movement == "p":
+            show_death_screen()
+        if movement == "v":
+            show_victory_screen()
 
 
 if __name__ == '__main__':
