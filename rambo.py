@@ -1,6 +1,5 @@
 import os
 import sys
-from colored import fg, bg, attr
 from rambo_screens import *
 
 colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), 'black': bg('black') + fg('black'),
@@ -86,6 +85,8 @@ def main():
     show_ascii_intro()
     input()
     show_main_menu()
+    create_character()
+    start_game()
     while True:
         background = create_board(sys.argv[1])
         board = insert_player(background[:], x, y)
