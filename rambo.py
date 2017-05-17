@@ -7,6 +7,14 @@ OBSTACLES = [colors['black']+"\bX"+colors['reset'],  # Edges
              colors['dorange']+"\bW"+colors['reset'],  # Walls
              colors['green']+"\bT"+colors['reset']]  # Trees
 STARTING_MAP = "vietnam_jungle.txt"
+WEAPONS = {"Beretta": (1, 11)}
+STARTING_STATUS = {"Lifes": 3,
+                   "Energy": 100,
+                   "Experience": 56,
+                   "Ammo": 20,
+                   "Weapon": "Beretta",
+                   "Hero Level": 5,
+                   "Keys": 0}
 
 
 def create_board(file_name):
@@ -66,7 +74,7 @@ def main():
         board = insert_player(background[:], x, y, hero_customization[0], hero_customization[1])
         print_board(board)
         if extend_inv:
-            print_status_bar_extended(hero_status)
+            print_status_bar_extended(hero_status, WEAPONS)
         else:
             print_status_bar_basic(hero_status)
         x, y, positions_of_enemies, extend_inv = move_hero(board, x, y, OBSTACLES, background,
