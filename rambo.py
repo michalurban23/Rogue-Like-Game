@@ -6,7 +6,15 @@ from rambo_hero_movement import *
 OBSTACLES = [colors['black']+"\bX"+colors['reset'],  # Edges
              colors['dorange']+"\bW"+colors['reset'],  # Walls
              colors['green']+"\bT"+colors['reset']]  # Trees
+
 STARTING_MAP = "vietnam_jungle.txt"
+
+WEAPONS_ATTRIBUTES = {
+    "Beretta" : (1, 10),
+    "Uzi" : (2, 20),
+    "M4" : (3, 30),
+    "M16" : (4, 40)
+}
 
 
 def create_board(file_name):
@@ -50,7 +58,10 @@ def main():
     y = 2
     extend_inv = False
     amount_of_enemies = 50
+    amount_of_chests = 10
+    amount_of_keys = 3
     hero_status = STARTING_STATUS
+    weapon_range = WEAPONS_ATTRIBUTES[hero_status["Weapon"]][0]
     # show_ascii_intro()
     # input()
     # show_main_menu()
@@ -58,19 +69,24 @@ def main():
     hero_customization = ['white', "\b"+chr(920)]
     # start_game()
     background = create_board(current_map)
-    positions_of_enemies = create_enemies(background, amount_of_enemies, OBSTACLES)
-
+    positions_of_enemies = create_objects(background, amount_of_enemies, OBSTACLES)
+    positions_of_chests = create_objects(background, amount_of_chests, OBSTACLES)
+    positions_of_keys = create_objects(background, amount_of_keys, OBSTACLES)
     while True:
         background = create_board(current_map)
-        board = insert_enemies(background[:], positions_of_enemies)
+        board = insert_objects(background[:], positions_of_enemies, "E")
+        board = insert_objects(background[:], positions_of_chests, "C")
+        board = insert_objects(background[:], positions_of_keys, "K")
         board = insert_player(background[:], x, y, hero_customization[0], hero_customization[1])
         print_board(board)
         if extend_inv:
             print_status_bar_extended(hero_status)
         else:
             print_status_bar_basic(hero_status)
+        
         x, y, positions_of_enemies, extend_inv = move_hero(board, x, y, OBSTACLES, background,
-                                                           positions_of_enemies, extend_inv)
+                                                           positions_of_enemies, positions_of_chests,
+                                                           extend_inv, weapon_range)
 
 
 if __name__ == '__main__':

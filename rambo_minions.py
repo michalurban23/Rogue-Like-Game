@@ -1,30 +1,38 @@
 import sys
 import random
+import rambo_colors
 
 
-def create_enemies(board, amount_of_enemies, OBSTACLES):
-    '''
-    '''
-    positions_of_enemies = []
-    while amount_of_enemies:
+def create_objects(board, amount_of_objects, OBSTACLES):
+    positions_of_objects = []
+    while amount_of_objects:
         x = random.randint(2, len(board[0])-1)
         y = random.randint(2, len(board)-1)
-        if board[y-1][x-1] not in OBSTACLES:
-            positions_of_enemies.append((x, y))
-            amount_of_enemies -= 1
-    return positions_of_enemies
+        if board[y-1][x-1] not in OBSTACLES: # +rambo.ITEM_OBSTACLES:
+            positions_of_objects.append((x, y))
+            amount_of_objects -= 1
+    return positions_of_objects
 
 
-def insert_enemies(board, positions):
+
+def insert_objects(board, positions, type_of_object):
+    colored_output = ""
+    if type_of_object == "E":
+        colored_output = "\bE"
+    elif type_of_object == "C":
+        colored_output = "\bC"
+    elif type_of_object == "K":
+        colored_output = "\bK"
     for x, y in positions:
-        board[y-1][x-1] = "\bE"
+        board[y-1][x-1] = colored_output
     return board
+
 
 
 def move_enemies(board, positions, OBSTACLES):
     new_positions = []
     for x, y in positions:
-        direction = random.randint(1,4)
+        direction = random.randint(1, 4)
 #        print(x, y)
         if direction == 1 and board[y-2][x-1] not in OBSTACLES:
             new_positions.append((x, y-1))
@@ -39,15 +47,27 @@ def move_enemies(board, positions, OBSTACLES):
     return new_positions
 
 
-def kill_enemies(enemy_positions, player_x, player_y):
+def kill_enemies(enemy_positions, player_x, player_y, range_of_weapon):
     i = 0
     while i < len(enemy_positions):
-        if abs(player_x-enemy_positions[i][0]) <= 5 and abs(player_y-enemy_positions[i][1]) <= 5 :
+        if abs(player_x-enemy_positions[i][0]) <= range_of_weapon and abs(player_y-enemy_positions[i][1]) <= range_of_weapon:
             # print(enemy_positions[i])
             del enemy_positions[i]
             break
         i += 1
 
+
+def enemy_shooting(enemy_positons, player_x, player_y):
+    pass
+
+
+def pick_up_item(item_positions, player_x, player_y):
+    i = 0
+    while i < len(item_positions):
+        if abs(player_x - item_positions[i][0]) <= 1 and abs(player_y-item_positions[i][1]) <= 1:
+            del item_positions[i]
+            break
+        i += 1
 
 
 def main():
