@@ -85,7 +85,7 @@ def create_character():
     '''
     Allows user to choose a few characteristics of a hero. Returnts them for future use
     '''
-    hero = []
+    hero_customization = []
     system("clear")
     print(RED + "\nWelcome adventurer\n")
     print(BLUE + "\nAs we all well know, John Rambo is an ultimate killing machine\n")
@@ -93,21 +93,21 @@ def create_character():
     input("\nPress enter to continue\n")
     system("clear")
 
-    skins = {"1": bg('white')+"\b",
-             "2": bg('yellow')+"\b",
-             "3": bg('light_sky_blue_3a')+"\b",
-             "4": bg('indian_red_1a')+"\b",
-             "5": bg('light_goldenrod_2a')+"\b"}
+    skins = {"1": 'white',
+             "2": 'yellow',
+             "3": 'light_sky_blue_3a',
+             "4": 'indian_red_1a',
+             "5": 'light_goldenrod_2a'}
     print(UNDERLINE + "\nI. Choose your skin color\n" + RESET)
     print(BLUE + "Pick one of the following:")
-    for key in skins:
-        print("\n" + key + ")  " + skins[key] + 20*" " + attr('reset') + BLUE)
+    for key in sorted(skins):
+        print("\n" + key + ")  " + bg(skins[key])+"\b" + 20*" " + attr('reset') + BLUE)
     while True:
         skin = input("\nSelect number: ")
         if skin in ["1", "2", "3", "4", "5"]:
             system("clear")
             break
-    hero.append(skins[skin])
+    hero_customization.append(skins[skin])
 
     avatars = {"1": fg('red')+"\b"+chr(920),
                "2": fg('red')+"\b"+"@",
@@ -116,14 +116,14 @@ def create_character():
                "5": fg('red')+"\b"+"&"}
     print(UNDERLINE + "\nII. Choose your avatar\n" + RESET)
     print(BLUE + "Pick one of the following:")
-    for key in avatars:
-        print("\n" + key + ")   " + skins[skin] + avatars[key] + attr('reset') + BLUE)
+    for key in sorted(avatars):
+        print("\n" + key + ")   " + RED + avatars[key] + attr('reset') + BLUE)
     while True:
         avatar = input("\nSelect number: ")
         if avatar in ["1", "2", "3", "4", "5"]:
             system("clear")
             break
-    hero.append(avatars[avatar])
+    hero_customization.append(avatars[avatar])
 
     skills = {"Spotter": "Increased sight radius (by +20%)",
               "Sniper": "Increased shooting distance (by +1 tile)",
@@ -141,7 +141,7 @@ def create_character():
     while True:
         skill = input("\nSelect a skill (e.g. 'ninja'): ").title()
         if skill in skills:
-            hero.append(skill)
+            hero_customization.append(skill)
             print(RED + "Rambo is now a", skill + "!" + BLUE)
             del skills[skill.title()]
         else:
@@ -150,7 +150,7 @@ def create_character():
             break
 
     input("\nYou are ready. Press enter for a mission briefing")
-    return(hero)
+    return(hero_customization)
 
 
 def show_highscores():
@@ -168,7 +168,7 @@ def show_highscores():
     print(RED + ascii_arts(1), RESET)
     HASH = GRAY + "*" + BLUE
     HORIZONTAL_BAR = (HASH + RED).join([" Player Name ", " Hero Level ", " Time ", " Completion ", " Enemies Killed "])
-    print(BLUE + "\n\n\nHere you can find a list of brave heroes how completed the game:\n")
+    print(BLUE + "\n\n\nHere you can find a list of brave heroes who completed the game:\n")
     print(HASH * 65)
     print(HASH + RED + HORIZONTAL_BAR + HASH)
     print(HASH * 65)
@@ -247,8 +247,11 @@ def show_victory_screen():
     print(BLUE + "You are victorious. Rambo once again saved the world.")
     print("There is only one more thing before you can get ready for sequel.")
     input("\nPress enter for Hall of Fame. You certainly deserved it!")
-
-    pass  # save to highscores
-
+    with open("highscores.txt", "a") as file:
+        file.write("name,")
+        file.write("111,")
+        file.write("222,")
+        file.write("333,")
+        file.write("444\n")
     show_highscores()
     show_main_menu()
