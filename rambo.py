@@ -48,6 +48,7 @@ def main():
     current_map = STARTING_MAP
     x = 2
     y = 2
+    extend_inv = False
     amount_of_enemies = 50
     hero_status = STARTING_STATUS
     # show_ascii_intro()
@@ -57,15 +58,19 @@ def main():
     hero_customization = ['white', "\b"+chr(920)]
     # start_game()
     background = create_board(current_map)
-    positions_of_enemies = create_enemies(background, amount_of_enemies)
+    positions_of_enemies = create_enemies(background, amount_of_enemies, OBSTACLES)
 
     while True:
         background = create_board(current_map)
         board = insert_enemies(background[:], positions_of_enemies)
         board = insert_player(background[:], x, y, hero_customization[0], hero_customization[1])
         print_board(board)
-        print_status_bar(len(board[0]), hero_status)
-        x, y, positions_of_enemies = move_hero(board, x, y, OBSTACLES, background, positions_of_enemies)
+        if extend_inv:
+            print_status_bar_extended(hero_status)
+        else:
+            print_status_bar_basic(hero_status)
+        x, y, positions_of_enemies, extend_inv = move_hero(board, x, y, OBSTACLES, background,
+                                                           positions_of_enemies, extend_inv)
 
 
 if __name__ == '__main__':
