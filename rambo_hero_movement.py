@@ -15,7 +15,8 @@ def getch():
     return ch
 
 
-def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_positions, inv, weapon_range, hero_status):
+def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_positions,
+              inv, weapon_range, hero_status, current_map):
     pressed_key = getch()
     if pressed_key == "w" and board[y-2][x-1] not in OBSTACLES:
         y -= 1
@@ -37,4 +38,6 @@ def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_pos
     if pressed_key in ["w", "s", "a", "d"]:
         manage_events(hero_status)
         positions_of_enemies = move_enemies(background[:], positions_of_enemies, OBSTACLES)
-    return x, y, positions_of_enemies, inv
+    if pressed_key == "e" and board[y-1][x] == colors['sblue'] + "\bN" + colors['reset']:
+        current_map = change_map(current_map)
+    return x, y, positions_of_enemies, inv, current_map

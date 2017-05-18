@@ -68,6 +68,7 @@ def enemy_shooting(enemy_positons, player_x, player_y):
     pass
 
 
+
 def pick_up_item(item_positions, player_x, player_y, hero_status):
     i = 0
     while i < len(item_positions):

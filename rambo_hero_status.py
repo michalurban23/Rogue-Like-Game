@@ -81,4 +81,21 @@ def manage_events(status, event=None):
 def change_hero_status(status):
     if status["Experience"] % 10 == 0:
         status["Hero Level"] = 1 + status["Experience"] // 10
+    if status["Energy"] <= 0:
+        status["Energy"] = 100
+        status["Lifes"] -= 1
+    if status["Energy"] > 100:
+        status["Energy"] = 100
+    if status["Lifes"] == 0:
+        show_death_screen()
     return status
+
+
+def change_map(current_map):
+    if current_map == "vietnam_jungle.txt":
+        next_map = "pow_camp.txt"
+    elif current_map == "pow_camp.txt":
+        next_map = "soviet_camp.txt"
+    elif current_map == "soviet_camp.txt":
+        next_map = "final_boss.txt"
+    return next_map

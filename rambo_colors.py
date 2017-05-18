@@ -20,6 +20,7 @@ colors = {'green': bg('green') + fg('green'), 'blue': bg('blue') + fg('blue'), '
           'dorange': bg('dark_orange_3a') + fg('dark_orange_3a'), 'yellow4b': bg('yellow_4b') + fg('yellow_4b'),
           'dred': bg('red_3a') + fg('red_3a'), 'violet': bg('deep_pink_4c') + fg('deep_pink_4c'),
           'yellow': bg('light_yellow') + fg('light_yellow'), 'red': bg('red') + fg('red'),
+          'sblue': bg('sky_blue_1') + fg('sky_blue_1'), 'gray': bg('grey_54') + fg('grey_54'),
           'reset': attr('reset')}
 
 # Blue             \e[0;34m
