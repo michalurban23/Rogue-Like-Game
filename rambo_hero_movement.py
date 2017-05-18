@@ -18,6 +18,7 @@ def getch():
 def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_positions,
               inv, weapon_range, hero_status, current_map):
     pressed_key = getch()
+    es = False
     if pressed_key == "w" and board[y-2][x-1] not in OBSTACLES:
         if board[y-2][x-1] == colors['blue'] + "\bR" + colors['reset']:
             manage_events(hero_status, "swimming")
@@ -48,6 +49,7 @@ def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_pos
     elif pressed_key == "e":
         pick_up_item(item_positions, x, y, hero_status)
     if pressed_key in ["w", "s", "a", "d"]:
+        enemy_shooting(positions_of_enemies, x, y, hero_status)
         manage_events(hero_status)
         positions_of_enemies = move_enemies(background[:], positions_of_enemies, OBSTACLES)
     if pressed_key == "e" and board[y-1][x] == colors['sblue'] + "\bN" + colors['reset']:

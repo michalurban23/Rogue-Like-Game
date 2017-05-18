@@ -92,9 +92,12 @@ def manage_events(status, event=None):
             pass
     if event == "swimming":
         status["Energy"] -= randint(15, 20)
-    if event == "life_lost":
-        status["Lifes"] -= 1
-        message = "life_lost"
+    if event == "enemy_shot":
+        status["Energy"] -= randint(40, 60)
+        message = "hero_touched"
+    #if event == "life_lost":
+    #    status["Lifes"] -= 1
+    #    message = "life_lost"
     status = change_hero_status(status)
     return status, message
 
