@@ -1,7 +1,7 @@
 from rambo_screens import *
 from rambo_hero_status import *
 from rambo_hero_movement import *
-
+import hot_cold
 
 OBSTACLES = [colors['black']+"\bX"+colors['reset'],  # Edges
              colors['dorange']+"\bW"+colors['reset'],  # Walls
@@ -53,7 +53,6 @@ def create_board(file_name):
                 element = colors['sblue'] + "\b" + element + colors['reset']
             elif element == "S" or element == '|':
                 element = colors['red'] + "\b" + element + colors['reset']
-            # elif element == "*":
             else:
                 element = colors['yellow4b'] + "\b" + element + colors['reset']
             playboard_line.append(element)
@@ -102,13 +101,16 @@ def main():
             board = insert_player(background[:], x, y, hero_customization[0], hero_customization[1])
             print_board(board)
             hero_status, message = manage_events(status=hero_status)
-            print_status_bar(message)
-            message = None
-            if extend_inv:
-                print_inventory_extended(hero_status, WEAPONS_ATTRIBUTES)
+            if current_map == "final_boss.txt":
+                hot_cold.main(hero_status)
             else:
-                print_inventory_basic(hero_status)
-            x, y, positions_of_enemies, extend_inv, current_map = move_hero(board, x, y, OBSTACLES, background, positions_of_enemies,
+                print_status_bar(message)
+                message = None
+                if extend_inv:
+                    print_inventory_extended(hero_status, WEAPONS_ATTRIBUTES)
+                else:
+                    print_inventory_basic(hero_status)
+                x, y, positions_of_enemies, extend_inv, current_map = move_hero(board, x, y, OBSTACLES, background, positions_of_enemies,
                                                                positions_of_chests, extend_inv, weapon_range,
                                                                hero_status, current_map)
 
