@@ -109,6 +109,9 @@ def manage_events(status, event=None):
         message = "life_lost"
     if event == "hero_moved":
         status["Energy"] += status["Energy Regen"]
+    if event == "enemy_shot":
+        status["Energy"] -= randint(40, 60)
+        message = "hero_touched"
     else:
         status = change_hero_status(status)
     return status, message
