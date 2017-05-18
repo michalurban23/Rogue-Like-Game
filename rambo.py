@@ -14,6 +14,7 @@ STARTING_STATUS = {"Lifes": 2,
                    "Experience": 0,
                    "Ammo": 20,
                    "Weapon": "Beretta",
+                   "Medpacks": 1,
                    "Hero Level": 1,
                    "Keys": 0,
                    "Sight": 10,
@@ -83,10 +84,10 @@ def main():
     # start_game()
     while True:
         next_map = current_map
-        #x = 110
-        #y = 20
-        x = 2
-        y = 2
+        x = 110
+        y = 20
+        # x = 2
+        # y = 2
         extend_inv = False
         amount_of_enemies = MAP_SPECIFIC[current_map]['Enemy_number']
         amount_of_chests = MAP_SPECIFIC[current_map]['Chests']
@@ -96,6 +97,7 @@ def main():
         positions_of_chests = create_objects(background, amount_of_chests, OBSTACLES)
         positions_of_keys = create_objects(background, amount_of_keys, OBSTACLES)
         while next_map == current_map:
+            weapon_range = WEAPONS_ATTRIBUTES[hero_status["Weapon"]][0]
             background = create_board(current_map)
             board = insert_objects(background[:], positions_of_enemies, MAP_SPECIFIC[current_map]['Enemy_type'])
             board = insert_objects(background[:], positions_of_chests, "C")
@@ -107,7 +109,6 @@ def main():
                 hot_cold.main(hero_status)
             else:
                 print_status_bar(message)
-                message = None
                 if extend_inv:
                     print_inventory_extended(hero_status, WEAPONS_ATTRIBUTES)
                 else:
@@ -115,6 +116,7 @@ def main():
                 x, y, positions_of_enemies, extend_inv, current_map = move_hero(board, x, y, OBSTACLES, background, positions_of_enemies,
                                                                positions_of_chests, extend_inv, weapon_range,
                                                                hero_status, current_map)
+
 
 if __name__ == '__main__':
     main()

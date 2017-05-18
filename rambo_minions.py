@@ -59,6 +59,7 @@ def kill_enemies(enemy_positions, player_x, player_y, range_of_weapon, hero_stat
             # print(enemy_positions[i])
             del enemy_positions[i]
             manage_events(status=hero_status, event="enemy_killed")
+            manage_events(status=hero_status, event="shot_fired")
             return
         i += 1
     manage_events(status=hero_status, event="shot_fired")
@@ -66,7 +67,6 @@ def kill_enemies(enemy_positions, player_x, player_y, range_of_weapon, hero_stat
 
 def enemy_shooting(enemy_positons, player_x, player_y):
     pass
-
 
 
 def pick_up_item(item_positions, player_x, player_y, hero_status):
