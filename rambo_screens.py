@@ -130,8 +130,8 @@ def create_character():
               "Survivor": "Increased vitality (+1 starting life)",
               "Swimmer": "Decreased energy loss in water (by 25%)",
               "Veteran": "Incresed exp from killing enemies (by 25%)",
-              "Athlete": "Increased energy regeneration (by 50%)",
-              "Camper": "Incresed maximum carry (by 15 lbs)",
+              "Athlete": "Increased energy regeneration (by 25%)",
+              "Camper": "Increased maximum carry (by 10 kg)",
               "Smartass": "Easier time with riddles (+3 attempts)",
               "Thief": "Starts a game with a universal key (keys +1)"}
     print(UNDERLINE + "\nIII. Choose your preferenced abilities\n" + RESET)

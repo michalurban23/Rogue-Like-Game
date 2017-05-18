@@ -15,7 +15,7 @@ def getch():
     return ch
 
 
-def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_positions, inv, weapon_range):
+def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_positions, inv, weapon_range, hero_status):
     pressed_key = getch()
     if pressed_key == "w" and board[y-2][x-1] not in OBSTACLES:
         y -= 1
@@ -28,12 +28,13 @@ def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_pos
     elif pressed_key == "q":
         if input("Type 'quit' to exit ") == "quit":
             exit()
-    elif pressed_key == "f":
-        kill_enemies(positions_of_enemies, x, y, weapon_range)
+    elif pressed_key == " ":
+        kill_enemies(positions_of_enemies, x, y, weapon_range, hero_status)
     elif pressed_key == "i":
         inv = not inv
-    elif pressed_key == "c":
-        pick_up_item(item_positions, x, y)
+    elif pressed_key == "e":
+        pick_up_item(item_positions, x, y, hero_status)
     if pressed_key in ["w", "s", "a", "d"]:
+        manage_events(hero_status)
         positions_of_enemies = move_enemies(background[:], positions_of_enemies, OBSTACLES)
     return x, y, positions_of_enemies, inv
