@@ -1,4 +1,6 @@
 from rambo_colors import *
+from random import randint
+from rambo_screens import show_death_screen
 
 BORDER = colors['black'] + "-" + colors['reset']
 message = None
@@ -15,6 +17,8 @@ def print_status_bar(message=None):
         print(RED + "Your energy dropped below zero. You lose a life" + BLUE)
     elif message == "chest_opened":
         print(BORDER + GREEN + "{:^142}".format("You found a chest!") + BLUE + BORDER)
+    elif message == "life_lost":
+        print(RED + "You lost life." + BLUE)
     elif message == "":
         print("")
     else:
@@ -74,6 +78,23 @@ def manage_events(status, event=None):
         status["Ammo"] -= 1
     if event == "chest_opened":
         message = "chest_opened"
+        random_item = randint(0, 4)
+        if random_item == 0:
+            amount_of_ammo = randint(1, 5)
+            status["Ammo"] += amount_of_ammo
+        elif random_item == 1:
+            pass
+        elif random_item == 2:
+            pass
+        elif random_item == 3:
+            pass
+        else: 
+            pass
+    if event == "swimming":
+        status["Energy"] -= randint(15, 20)
+    if event == "life_lost":
+        status["Lifes"] -= 1
+        message = "life_lost"
     status = change_hero_status(status)
     return status, message
 
