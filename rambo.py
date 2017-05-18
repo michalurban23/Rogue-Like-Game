@@ -83,6 +83,8 @@ def main():
     # start_game()
     while True:
         next_map = current_map
+        #x = 110
+        #y = 20
         x = 2
         y = 2
         extend_inv = False
@@ -113,7 +115,6 @@ def main():
                 x, y, positions_of_enemies, extend_inv, current_map = move_hero(board, x, y, OBSTACLES, background, positions_of_enemies,
                                                                positions_of_chests, extend_inv, weapon_range,
                                                                hero_status, current_map)
-
 
 if __name__ == '__main__':
     main()
