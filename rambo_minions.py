@@ -65,13 +65,18 @@ def kill_enemies(enemy_positions, player_x, player_y, range_of_weapon, hero_stat
     manage_events(status=hero_status, event="shot_fired")
 
 
-def enemy_shooting(enemy_positions, player_x, player_y, hero_status):
+def enemy_shooting(enemy_positions, player_x, player_y, hero_status, enemy_type):
+    if enemy_type == "V":
+        enemy_range = random.randint(0, 1)
+    elif enemy_type == "S":
+        enemy_range = random.randint(2, 3)
     i = 0
     while i < len(enemy_positions):
-        if abs(player_x-enemy_positions[i][0]) <= 2 and \
-           abs(player_y-enemy_positions[i][1]) <= 2:
-           manage_events(status=hero_status, event="enemy_shot")
+        if abs(player_x-enemy_positions[i][0]) <= enemy_range and \
+           abs(player_y-enemy_positions[i][1]) <= enemy_range:
+            manage_events(status=hero_status, event="enemy_shot")
         i += 1
+
 
 def pick_up_item(item_positions, player_x, player_y, hero_status):
     i = 0

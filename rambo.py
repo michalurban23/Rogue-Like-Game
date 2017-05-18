@@ -84,11 +84,10 @@ def main():
     # start_game()
     while True:
         next_map = current_map
-        x = 110
-        y = 20
-        # x = 2
-        # y = 2
+        x = 2
+        y = 2
         extend_inv = False
+        enemy_type = MAP_SPECIFIC[current_map]['Enemy_type']
         amount_of_enemies = MAP_SPECIFIC[current_map]['Enemy_number']
         amount_of_chests = MAP_SPECIFIC[current_map]['Chests']
         amount_of_keys = MAP_SPECIFIC[current_map]['Keys']
@@ -113,9 +112,10 @@ def main():
                     print_inventory_extended(hero_status, WEAPONS_ATTRIBUTES)
                 else:
                     print_inventory_basic(hero_status)
-                x, y, positions_of_enemies, extend_inv, current_map = move_hero(board, x, y, OBSTACLES, background, positions_of_enemies,
-                                                               positions_of_chests, extend_inv, weapon_range,
-                                                               hero_status, current_map)
+                x, y, positions_of_enemies, extend_inv, current_map = move_hero(
+                                        board, x, y, OBSTACLES, background, positions_of_enemies, positions_of_chests,
+                                        extend_inv, weapon_range, hero_status, current_map, enemy_type
+                                        )
 
 
 if __name__ == '__main__':

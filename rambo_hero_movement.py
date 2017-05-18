@@ -1,5 +1,7 @@
 from sys import stdin
+from time import sleep
 from rambo_minions import *
+from rambo_screens import show_detailed_help
 
 
 def getch():
@@ -16,9 +18,8 @@ def getch():
 
 
 def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_positions,
-              inv, weapon_range, hero_status, current_map):
+              inv, weapon_range, hero_status, current_map, enemy_type):
     pressed_key = getch()
-    es = False
     if pressed_key == "w" and board[y-2][x-1] not in OBSTACLES:
         if board[y-2][x-1] == colors['blue'] + "\bR" + colors['reset']:
             manage_events(status=hero_status, event="swimming")
@@ -53,13 +54,20 @@ def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_pos
         if hero_status["Medpacks"] > 0:
             manage_events(hero_status, event="medpack_used")
 
+    elif pressed_key == "h":
+        while True:
+            show_detailed_help()
+            sleep(0.1)
+            if getch() == "h":
+                break
+
     elif pressed_key == "e":
         pick_up_item(item_positions, x, y, hero_status)
         if board[y-1][x] == colors['sblue'] + "\bN" + colors['reset']:
             current_map = change_map(current_map)
 
     if pressed_key in ["w", "s", "a", "d"]:
-        enemy_shooting(positions_of_enemies, x, y, hero_status)
+        enemy_shooting(positions_of_enemies, x, y, hero_status, enemy_type)
         manage_events(hero_status, event="hero_moved")
         positions_of_enemies = move_enemies(background[:], positions_of_enemies, OBSTACLES)
 

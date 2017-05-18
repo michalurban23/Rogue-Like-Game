@@ -35,6 +35,14 @@ def print_inventory_basic(status):
           BORDER*3, BLUE + "Energy:" + RED + " {:>10}".format(round(status["Energy"], 2)),
           BORDER * 16)
     print(BORDER*144 + colors['reset'])
+    print(BORDER * 28 +
+          BORDER*3, BLUE + "Shoot:" + RED + "{:>9}".format("SpaceBar"),
+          BORDER*3, BLUE + "Use Medpack:" + RED + "{:>3}".format("R"),
+          BORDER*3, BLUE + "Pick / Use:" + RED + "{:>3}".format("E"),
+          BORDER*3, BLUE + "Help:" + RED + "{:>3}".format("H"),
+          BORDER*3, BLUE + "Quit:" + RED + "{:>3}".format("Q"),
+          BORDER * 31)
+    print(BORDER*144 + colors['reset'])
 
 
 def print_inventory_extended(status, WEAPONS):
@@ -44,15 +52,17 @@ def print_inventory_extended(status, WEAPONS):
                BLUE + "    Current exp: " + RED + str(status["Experience"]) +
                BLUE + "    You are " + RED + str(20 - status["Experience"] % 20) + BLUE + " exp away from next level",
                "00 ",
-               "07" + YELLOW + "<< Weapon Parameters >>" +
+               "09" + YELLOW + "<< Weapon Parameters >>" +
                BLUE + "    Type: " + RED + status["Weapon"] +
                BLUE + "    Weight: " + RED + str(WEAPONS[status["Weapon"]][1]) +
-               BLUE + "    Shooting Range: " + RED + str(WEAPONS[status["Weapon"]][0]),
+               BLUE + "    Shooting Range: " + RED + str(WEAPONS[status["Weapon"]][0]) +
+               BLUE + "    Ammo (0.1 kg each): " + RED + str([status["Ammo"]][0]),
                "00 ",
-               "11" + YELLOW + "<< Hero Status >>" +
+               "13" + YELLOW + "<< Hero Status >>" +
                BLUE + "    Lifes: " + RED + str(status["Lifes"]) +
                BLUE + "    Energy: " + RED + str(round(status["Energy"], 1)) +
                BLUE + "    Energy Regen: " + RED + str(status["Energy Regen"]) + BLUE + "/s" +
+               BLUE + "    Inteligence: " + RED + str(status["Inteligence"]) +
                BLUE + "    Sight Range: " + RED + str(status["Sight"]) + BLUE + " tiles",
                "00 ",
                "11" + YELLOW + "<< Backpack Status >>" +
@@ -111,6 +121,8 @@ def manage_events(status, event=None):
         status["Energy"] += status["Energy Regen"]
     if event == "enemy_shot":
         status["Energy"] -= randint(40, 60)
+        if status["Energy"] <= 0:
+            status["Lifes"] -= 1
         message = "hero_touched"
     else:
         status = change_hero_status(status)

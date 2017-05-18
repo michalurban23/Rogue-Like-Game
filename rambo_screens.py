@@ -83,7 +83,7 @@ def start_game():
 
 def create_character():
     '''
-    Allows user to choose a few characteristics of a hero. Returnts them for future use
+    Allows user to choose a few characteristics of a hero. Returns them for future use
     '''
     hero_customization = []
     system("clear")
@@ -208,11 +208,45 @@ def show_rules():
     print("D - move right:")
     print(UNDERLINE + "\nFighting:" + RESET)
     print(BLUE + "F - shoot")
+    print("R - use medpack")
     print(UNDERLINE + "\nOther:" + RESET)
     print(BLUE + "Q - quits the game")
     print("I - shows extended inventory")
+    print("H - show detailed in-game help")
     print("E - interact with doors and other objects\n")
     input("Press enter to go back to menu ")
+
+
+def show_detailed_help():
+    '''
+    Displays detailed information about items, enemies, etc.
+    '''
+    system("clear")
+    print(BLUE + "A detailed panel about all the things you encouter in game\n")
+    print(UNDERLINE + "\nEnergy:" + RESET)
+    print(BLUE + "Energy regenerates with every move. You lose it while swimming,\nshooting and being hit by enemies")
+    print(UNDERLINE + "\nWeapons & Ammo:" + RESET)
+    print(BLUE + "New weapons come from chests. Weapon vary in weight\nand shooting range. You use ammo on every shot")
+    print(UNDERLINE + "\nEnemies:" + RESET)
+    print(BLUE + "They can shoot you if you come to close. Vietnams have\nrange 0-1, Soviets 2-3. They provide exp")
+    print(UNDERLINE + "\nMedpacks:" + RESET)
+    print(BLUE + "Returns your hero to 100 energy. Drops from chests")
+    print(UNDERLINE + "\nChests" + RESET)
+    print(BLUE + "Random chance to drop weapons, ammo, medpacks or absolutely nothing")
+    print(UNDERLINE + "\nKeys" + RESET)
+    print(BLUE + "You need them open some doors")
+    print(UNDERLINE + "\nInteligence" + RESET)
+    print(BLUE + "Final boss is a riddler. The more inteligent you are\nthe better chances you have")
+    print(UNDERLINE + "\nWater" + RESET)
+    print(BLUE + "You can swim through, but you lose energy!")
+    print(UNDERLINE + "\nBackpack" + RESET)
+    print(BLUE + "If you go over the weight limit, your hero will suffer")
+    print(UNDERLINE + "\nSight" + RESET)
+    print(BLUE + "You can only see as far as your sight range")
+    print(UNDERLINE + "\nExperience & Levels" + RESET)
+    print(BLUE + "You get a level each 20exp points. Max level is 10.\nAffects your inteligence and other atributes\n")
+    print("Press 'h' to return to game ")
+    return
 
 
 def ascii_arts(n):
@@ -235,7 +269,7 @@ def show_death_screen():
     print(RED + ascii_arts(4) + BLUE)
     print(UNDERLINE + "\nYOU ARE DEAD\n" + RESET)
     input()
-    show_main_menu()
+    exit()
 
 
 def show_victory_screen():

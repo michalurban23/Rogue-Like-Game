@@ -1,0 +1,9 @@
+- switch screens
+- replay
+- final boss movement
+- fog of war
+- walls shooting
+- keys
+- doors
+- leveling up
+- backpack limit
