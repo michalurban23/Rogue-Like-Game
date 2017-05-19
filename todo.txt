@@ -1,9 +1,12 @@
 - switch screens
-- replay
-- final boss movement
-- fog of war
-- walls shooting
-- keys
-- doors
-- leveling up
-- backpack limit
+*- replay
+*- final boss movement
+*- fog of war
+*- walls shooting
++ doors
++ leveling up
++ backpack limit
++ creation stats
++ highscores
++ chest messages
++ negative ammo

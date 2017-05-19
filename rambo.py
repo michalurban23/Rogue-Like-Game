@@ -6,10 +6,10 @@ import hot_cold
 OBSTACLES = [colors['black']+"\bX"+colors['reset'],  # Edges
              colors['dorange']+"\bW"+colors['reset'],  # Walls
              colors['green']+"\bT"+colors['reset'],  # Trees
-             colors['red']+"\b|"+colors['reset'],  # Boss
              colors['sblue']+"\bN"+colors['reset']]  # Portals
 STARTING_MAP = "vietnam_jungle.txt"
 STARTING_STATUS = {"Lifes": 2,
+                   "Max Energy": 100,
                    "Energy": 100,
                    "Experience": 0,
                    "Ammo": 20,
@@ -20,14 +20,19 @@ STARTING_STATUS = {"Lifes": 2,
                    "Sight": 10,
                    "Max Load": 15,
                    "Energy Regen": 0.2,
-                   "Inteligence": 5}
-WEAPONS_ATTRIBUTES = {"Beretta": (1, 3),
-                      "Uzi": (2, 6),
-                      "M4": (3, 10),
-                      "M16": (4, 15)}
-MAP_SPECIFIC = {"vietnam_jungle.txt": {"Enemy_number": 50, "Enemy_type": "V", "Keys": 3, "Chests": 13},
-                "pow_camp.txt": {"Enemy_number": 5, "Enemy_type": "S", "Keys": 3, "Chests": 13},
-                "soviet_camp.txt": {"Enemy_number": 15, "Enemy_type": "S", "Keys": 3, "Chests": 13},
+                   "Inteligence": 2,
+                   "Bonus Range": 0,
+                   "Start Time": time.time(),
+                   "Overweight": False,
+                   "Swimming": 1,
+                   "Experience Ratio": 1}
+WEAPONS_ATTRIBUTES = {"Beretta": (2, 3),
+                      "Uzi": (3, 6),
+                      "M4": (4, 9),
+                      "M16": (5, 12)}
+MAP_SPECIFIC = {"vietnam_jungle.txt": {"Enemy_number": 50, "Enemy_type": "V", "Keys": 2, "Chests": 15},
+                "pow_camp.txt": {"Enemy_number": 40, "Enemy_type": "S", "Keys": 2, "Chests": 15},
+                "soviet_camp.txt": {"Enemy_number": 60, "Enemy_type": "S", "Keys": 1, "Chests": 15},
                 "final_boss.txt": {"Enemy_number": 0, "Enemy_type": "S", "Keys": 0, "Chests": 0}}
 
 
@@ -43,7 +48,7 @@ def create_board(file_name):
         for element in line[:-1]:
             if element == "T":
                 element = colors['green'] + "\b" + element + colors['reset']
-            elif element == "X":
+            elif element == "X" or element in ["1", "2", "3", "4"]:
                 element = colors['black'] + "\b" + element + colors['reset']
             elif element == "R":
                 element = colors['blue'] + "\b" + element + colors['reset']
@@ -64,11 +69,23 @@ def create_board(file_name):
     return playboard
 
 
-def print_board(board):
-    '''Prints background from "board" which is a list of lists.'''
+
+
+def print_board(hero_status, board, x, y):
+    outside = colors['black'] + "X" + colors['reset']
+    boundaries = {"left": max(0, x - hero_status["Sight"] - 3),
+                  "right": min(144, x + hero_status["Sight"] + 3),
+                  "top": max(1, y - hero_status["Sight"] + 3),
+                  "bottom": min(39, y + hero_status["Sight"] - 3)}
     system("clear")
-    for line in board:
-        print(*line)
+    for i in range(boundaries["top"]):
+        print(outside * 144)
+    for line in board[boundaries["top"]:boundaries["bottom"]]:
+        print(outside * boundaries["left"],
+              *line[boundaries["left"]:boundaries["right"]],
+              "\b" + outside * (144-boundaries["right"]))
+    for i in range(40 - boundaries["bottom"]):
+        print(outside * 144)
 
 
 def insert_player(board, x, y, hero_skin, hero_face):
@@ -81,14 +98,13 @@ def insert_player(board, x, y, hero_skin, hero_face):
 
 
 def main():
-    hero_status = STARTING_STATUS
-    weapon_range = WEAPONS_ATTRIBUTES[hero_status["Weapon"]][0]
     current_map = STARTING_MAP
     # show_ascii_intro()
     # input()
-    # show_main_menu()
+    show_main_menu()
     # hero_customization = create_character()
-    hero_customization = ['white', "\b"+chr(920), "Spotter", "Camper", "Survivor"]
+    hero_customization = ['white', "\b"+chr(920), "Spotter", "Veteran", "Sniper"]
+    hero_status = change_initial_stats(STARTING_STATUS, hero_customization[2:])
     # start_game()
     while True:
         next_map = current_map
@@ -103,14 +119,15 @@ def main():
         positions_of_enemies = create_objects(background, amount_of_enemies, OBSTACLES)
         positions_of_chests = create_objects(background, amount_of_chests, OBSTACLES)
         positions_of_keys = create_objects(background, amount_of_keys, OBSTACLES)
+        items_position = [positions_of_chests, positions_of_keys]
         while next_map == current_map:
-            weapon_range = WEAPONS_ATTRIBUTES[hero_status["Weapon"]][0]
             background = create_board(current_map)
             board = insert_objects(background[:], positions_of_enemies, MAP_SPECIFIC[current_map]['Enemy_type'])
             board = insert_objects(background[:], positions_of_chests, "C")
             board = insert_objects(background[:], positions_of_keys, "K")
             board = insert_player(background[:], x, y, hero_customization[0], hero_customization[1])
-            print_board(board)
+            # print_board(board)
+            print_board(hero_status, board, x, y)
             hero_status, message = manage_events(status=hero_status)
             if current_map == "final_boss.txt":
                 hot_cold.main(hero_status)
@@ -121,8 +138,8 @@ def main():
                 else:
                     print_inventory_basic(hero_status)
                 x, y, positions_of_enemies, extend_inv, current_map = move_hero(
-                                        board, x, y, OBSTACLES, background, positions_of_enemies, positions_of_chests,
-                                        extend_inv, weapon_range, hero_status, current_map, enemy_type
+                                        board, x, y, OBSTACLES, background, positions_of_enemies, items_position,
+                                        extend_inv, WEAPONS_ATTRIBUTES, hero_status, current_map, enemy_type
                                         )
 
 
