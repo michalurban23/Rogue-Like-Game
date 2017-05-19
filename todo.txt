@@ -1,9 +1,9 @@
-- switch screens
++ switch screens
 *- replay
 *- final boss movement
-*- fog of war
+*+ fog of war
 *- walls shooting
-+ doors
++ doors 
 + leveling up
 + backpack limit
 + creation stats

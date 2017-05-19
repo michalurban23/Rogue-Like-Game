@@ -81,6 +81,36 @@ def start_game():
             break
 
 
+def show_1st_cutscene():
+    '''
+    1st cut-scene
+    '''
+    system("clear")
+    print(BLUE + "You have succesfully traveled through vientamese jungle and found a passage")
+    print("Now it's time to infiltrate the camp where our POW's are kept\n")
+    input("Press enter: ")
+
+
+def show_2nd_cutscene():
+    '''
+    2nd cut-scene
+    '''
+    system("clear")
+    print(BLUE + "As predicted, camp was full of captured american soldiers.")
+    print("To help them, despite the orders, you must now clear the nearby fortress, full of soviet soldiers\n")
+    input("Press enter: ")
+
+
+def show_3rd_cutscene():
+    '''
+    3rd cut-scene
+    '''
+    system("clear")
+    print(BLUE + "You have defeated soviets and freed prisoners. But the HQ is not happy.")
+    print("They send general Marshall Murdock to deal with you. He is not your every-day oppponent though\n")
+    input("Press enter: ")
+
+
 def create_character():
     '''
     Allows user to choose a few characteristics of a hero. Returns them for future use

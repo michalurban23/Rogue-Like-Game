@@ -90,7 +90,8 @@ def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_pos
         pick_up_item(item_positions, x, y, hero_status)
         if board[y-1][x] == colors['sblue'] + "\bN" + colors['reset']:
             if (current_map == "vietnam_jungle.txt" and hero_status["Keys"] > 1) or \
-               (current_map == "pow_camp.txt" and hero_status["Keys"] > 3):
+               (current_map == "pow_camp.txt" and hero_status["Keys"] > 3) or \
+               (current_map == "soviet_camp.txt"):
                     current_map = change_map(current_map)
             else:
                 manage_events(hero_status, event="no_keys")

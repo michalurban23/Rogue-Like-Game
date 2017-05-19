@@ -8,7 +8,8 @@ OBSTACLES = [colors['black']+"\bX"+colors['reset'],  # Edges
              colors['green']+"\bT"+colors['reset'],  # Trees
              colors['sblue']+"\bN"+colors['reset']]  # Portals
 STARTING_MAP = "vietnam_jungle.txt"
-STARTING_STATUS = {"Lifes": 2,
+STARTING_MAP = "soviet_camp.txt"
+STARTING_STATUS = {"Lifes": 99,
                    "Max Energy": 100,
                    "Energy": 100,
                    "Experience": 0,
@@ -16,7 +17,7 @@ STARTING_STATUS = {"Lifes": 2,
                    "Weapon": "Beretta",
                    "Medpacks": 1,
                    "Hero Level": 1,
-                   "Keys": 0,
+                   "Keys": 11,
                    "Sight": 10,
                    "Max Load": 15,
                    "Energy Regen": 0.2,
@@ -66,25 +67,25 @@ def create_board(file_name):
     return playboard
 
 
-# def print_board(board):
-#    system("clear")
-#    for line in board:
-#        print(*line)
-def print_board(hero_status, board, x, y):
+def print_board(hero_status, board, x, y, current_map):
     outside = colors['black'] + "X" + colors['reset']
     boundaries = {"left": max(0, x - hero_status["Sight"] - 3),
                   "right": min(144, x + hero_status["Sight"] + 3),
                   "top": max(1, y - hero_status["Sight"] + 3),
                   "bottom": min(39, y + hero_status["Sight"] - 3)}
     system("clear")
-    for i in range(boundaries["top"]):
-        print(outside * 144)
-    for line in board[boundaries["top"]:boundaries["bottom"]]:
-        print(outside * boundaries["left"],
-              *line[boundaries["left"]:boundaries["right"]],
-              "\b" + outside * (144-boundaries["right"]))
-    for i in range(40 - boundaries["bottom"]):
-        print(outside * 144)
+    if current_map == "final_boss.txt":
+        for line in board:
+            print(*line)
+    else:
+        for i in range(boundaries["top"]):
+            print(outside * 144)
+        for line in board[boundaries["top"]:boundaries["bottom"]]:
+            print(outside * boundaries["left"],
+                  *line[boundaries["left"]:boundaries["right"]],
+                  "\b" + outside * (144-boundaries["right"]))
+        for i in range(40 - boundaries["bottom"]):
+            print(outside * 144)
 
 
 def insert_player(board, x, y, hero_skin, hero_face):
@@ -122,7 +123,7 @@ def main():
             board = insert_objects(background[:], positions_of_keys, "K")
             board = insert_player(background[:], x, y, hero_customization[0], hero_customization[1])
             # print_board(board)
-            print_board(hero_status, board, x, y)
+            print_board(hero_status, board, x, y, current_map)
             hero_status, message = manage_events(status=hero_status)
             if current_map == "final_boss.txt":
                 hot_cold.main(hero_status)

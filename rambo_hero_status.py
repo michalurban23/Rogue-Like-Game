@@ -1,6 +1,6 @@
 from rambo_colors import *
 from random import randint
-from rambo_screens import show_death_screen
+from rambo_screens import *
 import time
 
 BORDER = colors['black'] + "-" + colors['reset']
@@ -207,7 +207,7 @@ def change_hero_status(status):
 
 
 def check_doors_status(status, element, doors):
-    for n in range(0, 4):
+    for n in range(0, 5):
         if element == doors[n] and status["Keys"] > n:
             return 1
     manage_events(status, event="no_keys")
@@ -217,8 +217,11 @@ def check_doors_status(status, element, doors):
 def change_map(current_map):
     if current_map == "vietnam_jungle.txt":
         next_map = "pow_camp.txt"
+        show_1st_cutscene()
     elif current_map == "pow_camp.txt":
         next_map = "soviet_camp.txt"
+        show_2nd_cutscene()
     elif current_map == "soviet_camp.txt":
         next_map = "final_boss.txt"
+        show_3rd_cutscene()
     return next_map
