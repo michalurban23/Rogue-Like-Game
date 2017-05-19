@@ -32,6 +32,9 @@ MAP_SPECIFIC = {"vietnam_jungle.txt": {"Enemy_number": 50, "Enemy_type": "V", "K
 
 
 def create_board(file_name):
+    '''Imports background from "file_name" and colored it.
+    Returns colored background.
+    '''
     playboard = []
     with open(file_name, "r") as board:
         playboard_temp = board.readlines()
@@ -62,12 +65,17 @@ def create_board(file_name):
 
 
 def print_board(board):
+    '''Prints background from "board" which is a list of lists.'''
     system("clear")
     for line in board:
         print(*line)
 
 
 def insert_player(board, x, y, hero_skin, hero_face):
+    '''Inserts player sign on "board" on proper position given by "x" and "y".
+    "hero_skin" changes color of background of player sign 
+    "hero_face" changes the sign of player
+    '''
     board[y-1][x-1] = bg(hero_skin) + fg('red') + hero_face
     return board
 
