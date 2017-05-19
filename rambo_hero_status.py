@@ -68,6 +68,9 @@ def print_status_bar(message=None):
 
 
 def print_inventory_basic(status):
+    '''
+    Prints basic inventory and status bar below message bar, depending on hero status
+    '''
     print(BORDER * 13 +
           BORDER*3, BLUE + "Lifes:" + RED + "{:>10}".format(status["Lifes"]),
           BORDER*3, BLUE + "Hero Level:" + RED + " {:>10}".format(status["Hero Level"]),
@@ -88,6 +91,10 @@ def print_inventory_basic(status):
 
 
 def print_inventory_extended(status, WEAPONS):
+    '''
+    Prints extended inventory and status bar, with almost all information about hero.
+    There is a lot of formatting, further exaplin in comments within function.
+    '''
     current_load = (0.5*status["Keys"] + status["Medpacks"] + WEAPONS[status["Weapon"]][1] + 0.05*status["Ammo"])
     ext_inv = ["11" + YELLOW + "<< Hero Progress >>" +
                BLUE + "    Current hero level: " + RED + str(status["Hero Level"]) +
@@ -124,6 +131,11 @@ def print_inventory_extended(status, WEAPONS):
 
 
 def manage_events(status, event=None, WEAPONS=None):
+    '''
+    A very important "hub" function, thats responsible for all events in game. It takes in vent messages form other
+    functions and hero status, then based on an event it modifies status and sends out message to be printed on screen
+    Its responsible for "active" changes in status
+    '''
     global message
     if event == "no_ammo":
         message = "no_ammo"
@@ -188,11 +200,16 @@ def manage_events(status, event=None, WEAPONS=None):
         else:
             status["Overweight"] = False
     else:
+        # Every time this function run it will trigger a sibling function that changes hero status passively
         status = change_hero_status(status)
     return status, message
 
 
 def change_hero_status(status):
+    '''
+    Funtion resposible for passive changes in hero status. Gets triggered by manage_events function.
+    Takes in status and returns changes to it.
+    '''
     old_level = status["Hero Level"]
     if status["Experience"] % 20 == 0:
         status["Hero Level"] = 1 + status["Experience"] // 20
@@ -213,6 +230,9 @@ def change_hero_status(status):
 
 
 def check_doors_status(status, element, doors):
+    '''
+    Takes in hero status, element of board and list of doors to determined if doors should open or not
+    '''
     for n in range(0, 5):
         if element == doors[n] and status["Keys"] > n:
             return 1
@@ -221,6 +241,9 @@ def check_doors_status(status, element, doors):
 
 
 def change_map(current_map):
+    '''
+    Based on current map changes next map to according one.
+    '''
     if current_map == "vietnam_jungle.txt":
         next_map = "pow_camp.txt"
         show_1st_cutscene()
