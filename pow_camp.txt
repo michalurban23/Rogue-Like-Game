@@ -16,8 +16,8 @@ XWW.WWW.....WWW.....WW.....WW.....WW.....WW.....WW.....WW.....WW.....WW.....WW..
 XWW.WWW.....WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW...........WWW............RRRX
 XWW.WWW.....WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW...........WWW...........RRRRX
 XWW.........WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW...........WWW..........RRRR.X
-XWWWWWWWWWWDWWW........................WWW.............................WWW.....WWW..WWW...WWWWW......WWW.......WWW...........WWW........BBRRBB.X
-XWWWWWWWWWWDWWW........................WWW.............................WWW.....WWW....W...WWWWW......WWW.......WWW...........WWW........BBRRBB.X
+XWWWWWWWWWW2WWW........................WWW.............................WWW.....WWW..WWW...WWWWW......WWW.......WWW...........WWW........BBRRBB.X
+XWWWWWWWWWW2WWW........................WWW.............................WWW.....WWW....W...WWWWW......WWW.......WWW...........WWW........BBRRBB.X
 XWW...WWWWW.WWW........................WWW.............................WWW.....WWW..W.W...WWWWW......WWW.......WWW...........WWW.........RRRR..X
 XWW...WWWWW.WWW........................WWW.............................WWW..T.......W.W....EEE............WWW.......WWW......WWW.........RRRR..X
 XWW...WWWWW.WWW........................................................WWW.....WWW..W.W....EEE............WWW.......WWW......WWW........RRRR...X
@@ -28,8 +28,8 @@ XWWWWWWWWWW.WWW........................WWWWWWWWWWWWWWWWWWWWWWWW...WWWWWWWW.....W
 XWWWWWWWW...WWW........................WWW.............................WWW.....WWW..W.W...WWWWW......WWW.......WWW...........WWW..........RRRR.X
 XWW....WW...WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW.............................WWW.....WWW..W.W...WWWWW......WWW.......WWW...........WWWWWW......RRRR..X
 XWW....WW...WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW.............................WWW..T.......W.W....EEE............WWW.......WWW......WWWWWW......RRRR..X
-XWW....WW...WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW.............................WWW.....WWW..W.W....EEE............WWW.......WWW......DDD.........RRRR..X
-XWW....WW.........WWW..................WWW.............................DDD.....WWW..w.W....EEE.......WWW.......WWW...........DDD.........RRRR..X
+XWW....WW...WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW.............................WWW.....WWW..W.W....EEE............WWW.......WWW......333.........RRRR..X
+XWW....WW.........WWW..................WWW.............................DDD.....WWW..w.W....EEE.......WWW.......WWW...........333.........RRRR..X
 XWW....WW.........WWW..................WWW.............................DDD.....WWW..W.W....EEE.......WWW.......WWW...........WWWWWW.....RRRR...X
 XWW....................................................................WWW..T.......W.W....EEE............WWW.......WWW......WWWWWW....RRRR....X
 XWW....................................................................WWW.....WWW..W.W...WWWWW...........WWW.......WWW......WWW......RRRR.....X

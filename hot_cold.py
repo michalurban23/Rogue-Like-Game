@@ -3,6 +3,7 @@ import time
 from rambo_hero_status import *
 from rambo_screens import *
 
+
 def user_input(n):
     while True:
         try:
@@ -27,7 +28,7 @@ def create_number():
     return random_number
 
 
-hot_cold_message = ("""I am thinking of a 3-digit number. Try to guess what it is.
+hot_cold_message = """I am thinking of a 3-digit number. Try to guess what it is.
 
 Here are some clues:
 
@@ -39,7 +40,7 @@ When I say:    That means:
 
   Hot        One digit is correct and in the right position.
 
-I have thought up a number. You have 10 guesses to get it.) """)
+I have thought up a number. You have {} guesses to get it.) """
 
 
 def main(status):
@@ -48,7 +49,7 @@ def main(status):
     print(number_to_guess_original)
     start = time.time()
     diff = status["Inteligence"]
-    print(hot_cold_message)
+    print(hot_cold_message.format(status["Inteligence"]))
     while n <= diff:
         cold_check = 0
         number_to_guess = number_to_guess_original[:]
@@ -57,7 +58,7 @@ def main(status):
             end = time.time()
             print("Your time was {:.3}s and you needed {} guess(es)".format(end-start, n))
             input()
-            show_victory_screen()
+            show_victory_screen(status)
             break
         else:
             i = 0

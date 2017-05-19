@@ -125,10 +125,10 @@ def create_character():
             break
     hero_customization.append(avatars[avatar])
 
-    skills = {"Spotter": "Increased sight radius (by +20%)",
+    skills = {"Spotter": "Increased sight radius (by 50%)",
               "Sniper": "Increased shooting distance (by +1 tile)",
               "Survivor": "Increased vitality (+1 starting life)",
-              "Swimmer": "Decreased energy loss in water (by 25%)",
+              "Swimmer": "Decreased energy loss in water (by 50%)",
               "Veteran": "Incresed exp from killing enemies (by 25%)",
               "Athlete": "Increased energy regeneration (by 25%)",
               "Camper": "Increased maximum carry (by 10 kg)",
@@ -249,6 +249,19 @@ def show_detailed_help():
     return
 
 
+def show_detailed_log(full_log):
+    '''
+    Displays list of all messages so far.
+    '''
+    system("clear")
+    print(full_log[0], "\n")
+    for index in range(1, len(full_log)):
+        if full_log[index] and (full_log[index] != full_log[index-1]):
+            print(full_log[index])
+    print("\nPress 'l' to return to game ")
+    return
+
+
 def ascii_arts(n):
     '''
     Reads appropriate ascii arts for further display in different screens
@@ -267,12 +280,11 @@ def show_death_screen():
     '''
     system("clear")
     print(RED + ascii_arts(4) + BLUE)
-    print(UNDERLINE + "\nYOU ARE DEAD\n" + RESET)
     input()
     exit()
 
 
-def show_victory_screen():
+def show_victory_screen(status):
     '''
     Shows a victory screen and updates highscores
     '''
@@ -281,11 +293,14 @@ def show_victory_screen():
     print(BLUE + "You are victorious. Rambo once again saved the world.")
     print("There is only one more thing before you can get ready for sequel.")
     input("\nPress enter for Hall of Fame. You certainly deserved it!")
+    system("clear")
+    player_name = input("Your name? ")
     with open("highscores.txt", "a") as file:
-        file.write("name,")
-        file.write("111,")
-        file.write("222,")
-        file.write("333,")
-        file.write("444\n")
+        file.write(player_name + ",")
+        file.write(str(int(status["Hero Level"])) + ",")
+        file.write(str(round(status["End Time"] - status["Start Time"], 1)) + ",")
+        file.write(str(round(min(status["Experience"]+status["Inteligence"], 150)/150)*100) + "%,")
+        file.write(str(status["Experience"]//status["Experience Ratio"]) + "\n")
+    input()
     show_highscores()
-    show_main_menu()
+    exit()
