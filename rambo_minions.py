@@ -66,7 +66,7 @@ def kill_enemies(enemy_positions, player_x, player_y, range_of_weapon, hero_stat
     manage_events(status=hero_status, event="shot_fired")
 
 
-def enemy_shooting(enemy_positions, player_x, player_y, hero_status, enemy_type):
+def check_enemy_shoot_range(enemy_positions, player_x, player_y, hero_status, enemy_type):
     if enemy_type == "V":
         enemy_range = 1
     elif enemy_type == "S":

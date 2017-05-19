@@ -8,8 +8,7 @@ OBSTACLES = [colors['black']+"\bX"+colors['reset'],  # Edges
              colors['green']+"\bT"+colors['reset'],  # Trees
              colors['sblue']+"\bN"+colors['reset']]  # Portals
 STARTING_MAP = "vietnam_jungle.txt"
-STARTING_MAP = "soviet_camp.txt"
-STARTING_STATUS = {"Lifes": 99,
+STARTING_STATUS = {"Lifes": 2,
                    "Max Energy": 100,
                    "Energy": 100,
                    "Experience": 0,
@@ -17,7 +16,7 @@ STARTING_STATUS = {"Lifes": 99,
                    "Weapon": "Beretta",
                    "Medpacks": 1,
                    "Hero Level": 1,
-                   "Keys": 11,
+                   "Keys": 0,
                    "Sight": 10,
                    "Max Load": 15,
                    "Energy Regen": 0.2,
@@ -71,7 +70,12 @@ def create_board(file_name):
 
 
 def print_board(hero_status, board, x, y, current_map):
-    outside = colors['black'] + "X" + colors['reset']
+    '''
+    Takes in board, player position, his status and current map. Based on player sight range,
+    displays board around him, while everything rest is printed black. On the last map its turned off
+    '''
+    outside = colors['black'] + "X" + colors['reset']  # Black elements of vision outside range
+    # Calculate boundaries of player vision, so he sees no further than his sight range or map borders
     boundaries = {"left": max(0, x - hero_status["Sight"] - 3),
                   "right": min(144, x + hero_status["Sight"] + 3),
                   "top": max(1, y - hero_status["Sight"] + 3),
@@ -81,6 +85,7 @@ def print_board(hero_status, board, x, y, current_map):
         for line in board:
             print(*line)
     else:
+        # prints black blocks everywhere outside boundaries, and actual board inside
         for i in range(boundaries["top"]):
             print(outside * 144)
         for line in board[boundaries["top"]:boundaries["bottom"]]:
@@ -102,15 +107,15 @@ def insert_player(board, x, y, hero_skin, hero_face):
 
 def main():
     current_map = STARTING_MAP
-    # show_ascii_intro()
-    # input()
+    show_ascii_intro()
+    input()
     show_main_menu()
-    # hero_customization = create_character()
-    hero_customization = ['white', "\b"+chr(920), "Spotter", "Veteran", "Sniper"]
+    hero_customization = create_character()
     hero_status = change_initial_stats(STARTING_STATUS, hero_customization[2:])
-    # start_game()
+    start_game()
     while True:
         next_map = current_map
+        # Hero starting position (top left)
         x = 2
         y = 2
         extend_inv = False

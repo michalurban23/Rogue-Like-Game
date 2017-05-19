@@ -9,6 +9,9 @@ full_log = ["Log of all messages from the game engine"]
 
 
 def change_initial_stats(status, changes):
+    '''
+    Takes in hero status and changes it according to creation parameters
+    '''
     if "Spotter" in changes:
         status["Sight"] += 5
     if "Sniper" in changes:
@@ -31,6 +34,9 @@ def change_initial_stats(status, changes):
 
 
 def print_status_bar(message=None):
+    '''
+    Prints information below main screen, according to messages from other functions in game
+    '''
     if message == "hero_touched":
         print(BORDER + RED + "{:^142}".format("You have been shot by an enemy. Your energy fell") + BLUE + BORDER)
     elif message == "overweight":

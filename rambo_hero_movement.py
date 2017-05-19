@@ -99,7 +99,7 @@ def move_hero(board, x, y, OBSTACLES, background, positions_of_enemies, item_pos
     manage_events(hero_status, event="check_load", WEAPONS=WEAPONS_ATTRIBUTES)
 
     if pressed_key in ["w", "s", "a", "d"]:
-        enemy_shooting(positions_of_enemies, x, y, hero_status, enemy_type)
+        check_enemy_shoot_range(positions_of_enemies, x, y, hero_status, enemy_type)
         positions_of_enemies = move_enemies(background[:], positions_of_enemies, OBSTACLES)
         manage_events(hero_status, event="check_load", WEAPONS=WEAPONS_ATTRIBUTES)
         if not hero_status["Overweight"]:
